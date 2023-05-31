@@ -21,21 +21,22 @@ public class UserControllerImpl {
         model.addAttribute("getAllUsers", userService.getAllUsers());
         return "users";
     }
-
-    @GetMapping
-    public String getUserById(ModelMap model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "getUserById";
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
-        userService.deleteUser(id);
-        return "redirect:/users";
-    }
-
-
-    public String addUser(User user) {
-        return null;
-    }
 }
+
+//    @GetMapping
+//    public String getUserById(ModelMap model, @PathVariable("id") Long id) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        return "getUserById";
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public String deleteUser(@PathVariable("id") Long id) {
+//        userService.deleteUser(id);
+//        return "redirect:/users";
+//    }
+//
+//
+//    public String addUser(User user) {
+//        return null;
+//    }
+//}
