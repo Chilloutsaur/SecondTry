@@ -31,8 +31,11 @@ public class JPAConfig {
         lcemfb.setDataSource(dataSource());
         lcemfb.setJpaProperties(hibernateProperties());
         lcemfb.setPackagesToScan("webApp");
-        lcemfb.setPersistenceUnitName("myJpaPersistenceUnit");
         return lcemfb;
+    }
+    @Bean(name = "transactionManager")
+    public PlatformTransactionManager txManager() {
+        return new JpaTransactionManager(getEntityManagerFactoryBean().getObject());
     }
 
     @Bean(name = "entityManager")
