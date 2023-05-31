@@ -44,11 +44,6 @@ public class JPAConfig {
     }
 
 
-    @Bean(name = "transactionManager")
-    public PlatformTransactionManager txManager() {
-        return new JpaTransactionManager(getEntityManagerFactoryBean().getObject());
-    }
-
     @Bean
     public JpaVendorAdapter getJpaVendorAdapter() {
         return new HibernateJpaVendorAdapter();
