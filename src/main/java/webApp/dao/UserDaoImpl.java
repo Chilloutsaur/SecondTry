@@ -4,8 +4,10 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import webApp.model.User;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -54,5 +56,6 @@ public class UserDaoImpl implements UserDao {
             System.out.println(oldUser + " update");
             entityManager.getTransaction().commit();
         }
+
     }
 }
