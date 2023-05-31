@@ -1,17 +1,19 @@
 package webApp.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -20,7 +22,7 @@ import java.util.Properties;
 @PropertySource(value = "classpath:application.properties")
 public class JPAConfig {
     @Autowired
-    Environment environment;
+    private Environment environment;
 
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
@@ -31,6 +33,17 @@ public class JPAConfig {
         lcemfb.setPackagesToScan("webApp");
         lcemfb.setPersistenceUnitName("myJpaPersistenceUnit");
         return lcemfb;
+    }
+
+    @Bean(name = "entityManager")
+    public EntityManager getEntityManager() {
+        return getEntityManagerFactoryBean().getObject().createEntityManager();
+    }
+
+
+    @Bean(name = "transactionManager")
+    public PlatformTransactionManager txManager() {
+        return new JpaTransactionManager(getEntityManagerFactoryBean().getObject());
     }
 
     @Bean
