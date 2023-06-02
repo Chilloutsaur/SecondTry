@@ -1,7 +1,6 @@
 package webApp.dao;
 
 import webApp.model.User;
-import webApp.service.UserService;
 
 import java.util.List;
 
@@ -15,4 +14,6 @@ public interface UserDao {
 
 
     void addUser(User user);
+
+    void updateUser(Long id, User user);
 }

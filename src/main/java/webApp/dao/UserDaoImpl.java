@@ -17,6 +17,7 @@ import java.util.List;
 @Component
 @Transactional
 public class UserDaoImpl implements UserDao {
+
     @Autowired
     @PersistenceContext
     EntityManager entityManager;
@@ -36,26 +37,20 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteUser(Long id) {
-        entityManager.getTransaction().begin();
         entityManager.remove(getUserById(id));
-        entityManager.getTransaction().commit();
     }
 
     @Override
     public void addUser(User user) {
-        if (user.getId() == null) {
-            entityManager.getTransaction().begin();
             entityManager.merge(user);
-            System.out.println(user + "Add");
-            entityManager.getTransaction().commit();
-        } else {
-            entityManager.getTransaction().begin();
-            User oldUser = getUserById(user.getId());
-            oldUser.setName(user.getName());
-            oldUser.setLastName(user.getLastName());
-            System.out.println(oldUser + " update");
-            entityManager.getTransaction().commit();
-        }
+    }
+
+    public void updateUser(Long id, User user) {
+        User oldUser = getUserById(id);
+        oldUser.setName(user.getName());
+        oldUser.setLastName(user.getLastName());
 
     }
+
+
 }
