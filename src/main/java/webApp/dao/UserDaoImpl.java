@@ -15,7 +15,6 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Component
-@Transactional
 public class UserDaoImpl implements UserDao {
 
     @Autowired
@@ -23,14 +22,12 @@ public class UserDaoImpl implements UserDao {
     EntityManager entityManager;
 
     @Override
-    @Transactional(readOnly = true)
     public List<User> getAllUsers() {
         return entityManager.createQuery("select user from User user", User.class).getResultList();
     }
 
 
     @Override
-    @Transactional(readOnly = true)
     public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
