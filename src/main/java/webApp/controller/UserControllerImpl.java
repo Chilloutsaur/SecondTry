@@ -26,7 +26,7 @@ public class UserControllerImpl {
     }
 
     @GetMapping("/{id}/edit")
-    public String getEditUser(ModelMap model, @PathVariable("id") Long id) {
+    public String getEditUser(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "editUser";
     }
@@ -45,7 +45,9 @@ public class UserControllerImpl {
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+    public String updateUser( @PathVariable("id") Long id, @ModelAttribute("user") @Valid User user,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) return "form";
         userService.updateUser(id, user);
         return "redirect:/users";
     }

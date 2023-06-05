@@ -16,11 +16,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    @Pattern(regexp="^[a-zA-Z]+$",message="numbers are not allowed to be entered")
+    @Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
     @NotEmpty(message = "Name should not be empty")
     private String name;
     @Column
-    @Pattern(regexp="^[a-zA-Z]+$",message="numbers are not allowed to be entered")
+    @Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
     @NotEmpty(message = "lastName should not be empty")
     private  String lastName;
 
